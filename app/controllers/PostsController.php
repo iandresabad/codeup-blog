@@ -9,7 +9,8 @@ class PostsController extends BaseController {
 	 */
 	public function index()
 	{
-		 return "Display all the Posts";
+		$posts = Post::all();
+		return View::make('posts.index')->with('posts', $posts);	 
 	}
 
 	/**
@@ -19,7 +20,7 @@ class PostsController extends BaseController {
 	 */
 	public function create()
 	{
-		return "Show all the Posts";
+		return View::make('posts.create');
 	}
 
 	/**
@@ -29,7 +30,27 @@ class PostsController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		 // create the validator
+	    $validator = Validator::make(Input::all(), Post::$rules);
+
+	    // attempt validation
+	    if ($validator->fails())
+	    {
+	        // validation failed, redirect to the post create page with validation errors and old inputs
+	        return Redirect::back()->withInput()->withErrors($validator);
+	    }
+	    else
+	    {
+        // validation succeeded, create and save the post
+			$post = new Post();
+
+			$post->title = Input::get('title');
+			$post->body = Input::get('body');
+
+			$post->save();
+
+			return Redirect::action('PostsController@index');
+		}
 	}
 
 	/**
@@ -40,7 +61,7 @@ class PostsController extends BaseController {
 	 */
 	public function show($id)
 	{
-		return "Display all Posts";
+		$post = Post::findOrFail($id);
 	}
 
 	/**
@@ -51,7 +72,7 @@ class PostsController extends BaseController {
 	 */
 	public function edit($id)
 	{
-		return "Edit the Posts";
+		// return "Edit the Posts";
 	}
 
 	/**
