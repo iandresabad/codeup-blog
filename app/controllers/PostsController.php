@@ -5,8 +5,8 @@ class PostsController extends BaseController {
 	// public function __construct()
 	// {
 		
-		// include parent constructor
-		// parent::__construct();
+	// 	include parent constructor
+	// 	parent::__construct();
 
 	// 	//Run an auth filter before all methos except index and show 
 	// 	$this->beforeFilter('auth.basic', ['except' =>['inded', 'show' ]]);

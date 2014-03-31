@@ -25,16 +25,18 @@ Route::get('orm-test', function () {
 	// // // 	//take out the foreach if using option 2 
 	echo '<h2>' . $post->title . '</h2>' . '<p>' . $post->body . '</p>';
 	}
-	// $post1 = new Post();
-	// $post1->title = "Eloquent is awesome!";
-	// $post1->body = "It is super easy to create a new post.";
-	// $post1->save();
-
-	// $post2 = new Post();
-	// $post2->title = "Post number two";
-	// $post2->body = "The body for post number two.";
-	// $post2->save();
 });
+
+// public function run()
+    
+//     {
+//         DB::table('users')->delete();
+
+//         $user = new User();
+//         $user->email = 'iandresabad@yahoo.com';
+//         $user->password = Hash::make('letMeIn');
+//         $user->save();
+//     }
 
 Route::get('/resume', 'HomeController@showResume');
 
