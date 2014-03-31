@@ -1,12 +1,12 @@
 @extends('layouts.master')
 
 @section('header')
-  <h1 class="blog-title">Create a New Post</h1>
+  <h1 class="blog-title">Edit Post</h1>
 @stop
 
 @section('content')
 	<div class"blog-post">
-      {{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal')) }}
+      {{ Form::model($post, array('action' => array('PostsController@update', $post->id), 'method' => 'PUT', 'class' => 'form-horizontal')) }}
           <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }} ">
             {{ Form::label('title', 'Title', array('class' => 'col-sm-2 control-label')) }}
             <div class="col-sm-10">
@@ -23,7 +23,7 @@
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Create Post</button>
+              <button type="submit" class="btn btn-default">Save Changes</button>
             </div>
           </div>
     {{Form::close() }}

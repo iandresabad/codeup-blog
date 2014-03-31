@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/', function() {
+    return View::make('hello');
+})->before('auth.basic');
 
 Route::get('/', 'HomeController@showWelcome');
 
@@ -32,7 +35,6 @@ Route::get('orm-test', function () {
 	// $post2->body = "The body for post number two.";
 	// $post2->save();
 });
-
 
 Route::get('/resume', 'HomeController@showResume');
 

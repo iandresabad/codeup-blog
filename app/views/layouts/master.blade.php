@@ -6,13 +6,26 @@
     <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="css/carousel.css"/>
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="public/BootStrap/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="public/BootStrap/css/carousel.css"/>
+	<link rel="stylesheet" type="text/css" href="/stylesheet.css">
 	<link rel="shortcut icon" href="img/Arches v2-6.jpg" />
-	@yield('tab-title')
+	<!-- @yield('tab-title') -->
 </head>
 <body>
+	<style>
+		ul,li {display: inline; }
+		#main-content {
+			padding-top: 50px;
+		}
+	</style>
+	<title>@yield('title')</title>
+	@if (Session::has('succesMessage'))
+		<div class="alert alert-success">{{{ Session::get('successMessage') }}}</div>
+	@endif
+	@if (Session::has('errorMessage'))
+		<div clas="alert alert-danger">{{{ Session::get('errorMessage') }}}</div>
+	@endif
 	<!-- navbar -->
 	<div id="navbar" class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
@@ -29,21 +42,17 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li class="{{ Request::is('resume') ? 'active' : '' }}"><a href="{{{ action('HomeController@showResume') }}}">Resume</a></li>
 						<li class="{{ Request::is('portfolio') ? 'active' : '' }}"><a href="{{{ action('HomeController@showPortfolio') }}}">Portfolio</a></li>
-						<!-- <li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a href="yahtzee.php">Yahtzee</a></li>
-								<li><a href="blackjack.php">Blackjack</a></li>
-								<li><a href="connect-four.php">Connect Four</a></li>
-								<li><a href="whack-a-mole.html">Whack-A-Mole</a></li>
-							</ul>
-						</li> -->
+						<li><a href="{{action('PostsController@index') }}">Posts<a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end navbar -->
+	<div id="main-content" class="container">
 	@yield('content')
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	@yield('bottom-script')
+	</div>
 </body>
 </html>

@@ -2,12 +2,33 @@
 
 @section('title')
 	{{{ $post->title }}}
-		Ivan Blog
+		Ivans Blog
 @stop
+
 @section('content')
-	<div>
-		<h2>{{{ $post->title }}}</h2>
+		<p class="blog-post-meta">{{{ $post->created_at->setTimeZone('America/Chicago')->format('l, F jS Y @ h:i:s A') }}}</p>
+		<h1>{{{ $post->title }}}</h1>
 		<p>{{{ $post->body }}}</p>
-		<p><a href="{{{ action('PostController@index') }}}"></a></p>
-	</div>
+		<hr>
+		<p><a href="{{{ action('PostsController@index') }}}">Return to posts listing</a></p>
+
+	<a href="#" id="btnDeletePost">Delete</a>
+	<a href="{{{ action('PostsController@edit', $post->id) }}}" class="btn">Edit</a>
+
+@stop
+
+	{{ Form::open(array('action' => array('PostsController@destroy', $post->id), 'method' => 'delete', 'id' => 'formDeletePost')) }}
+	
+	{{ Form::Close() }}
+
+@section('bottom-script')
+
+<script>
+$('#btnDeletePost').on('click', function (e) {
+	e.preventDefault();
+	if(confirm('Are you sure you want to delete this post?')) {
+		$('#formDeletePost').submit();
+	}
+});
+</script>
 @stop
