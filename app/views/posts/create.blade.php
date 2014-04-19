@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class"blog-post">
-      {{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal')) }}
+      {{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal', 'files' => 'true' )) }}
           <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }} ">
             {{ Form::label('title', 'Title', array('class' => 'col-sm-2 control-label')) }}
             <div class="col-sm-10">
@@ -22,10 +22,14 @@
             </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-default">Create Post</button>
-            </div>
-          </div>
+            {{ Form::label('file', 'Upload Image: ') }}
+            {{ Form::file('file'); }}
+          </div>  
+          <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Create Post</button>
+        </div>
+      </div>
     {{Form::close() }}
 </div>
 @stop

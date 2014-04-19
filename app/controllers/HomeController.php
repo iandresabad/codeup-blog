@@ -30,4 +30,42 @@ class HomeController extends BaseController {
 		return View::make('portfolio');
 	}
 
+	public function showLogin()
+	{
+		return View::make('login');
+	}
+
+	public function doLogin() {
+		// create the validator
+    	$validator = Validator::make(Input::all(), User::$rules);
+
+    	// attempt validation
+    	if ($validator->fails()){
+        	// validation failed, redirect with validation errors
+        	$messages = $validator->messages();
+        	foreach ($messages->all() as $message){
+    			Session::flash('errorMessage', $message);	
+        	}
+    		return Redirect::back()->withInput()->withErrors($validator);
+    	} else {
+
+			// Perform Authentication
+			if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')))) {
+	    		return Redirect::intended('/posts');
+			} else {
+				Session::flash('errorMessage', 'User email or password not recognized.  Please try again.');
+				return Redirect::back()->withInput()->withErrors($validator);
+			}
+    		
+    	}
+
+	}
+
+	public function logout()
+	{
+		Auth::logout();
+
+		return Redirect::action('HomeController@showLogin');
+	}
+
 }

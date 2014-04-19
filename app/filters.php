@@ -22,6 +22,18 @@ App::after(function($request, $response)
 	//
 });
 
+Route::filter('post.protect', function ($route)
+{
+	$id = $route->getParameter('posts');
+
+	$post = Post::find($id);
+
+	if(!Auth::user()->canManagePost($post)) {
+		Session::flash('errorMessage', "Permission Denied");
+		return Redirect::action('PostsController@show', $id);
+	};
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
@@ -32,6 +44,12 @@ App::after(function($request, $response)
 | integrates HTTP Basic authentication for quick, simple checking.
 |
 */
+
+// Route::filter('post.protect', function($route) {
+// 	$id = $route->getParameter('posts');
+
+// 	$post = Post::findBySlug()
+// }
 
 Route::filter('auth', function()
 {

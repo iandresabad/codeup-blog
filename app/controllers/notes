@@ -1,0 +1,6 @@
+1) Convert login.blade.php to use form builder for inputs.
+2) Show errors for bad login. Use Session::flash(). 
+3) Only allow post owner to edit a post. 
+4) Expand user table to include first_name and last_name and optionally username. Show either with posts. 
+
+filter = post.protect 

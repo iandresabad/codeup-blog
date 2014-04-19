@@ -11,11 +11,22 @@
 |
 */
 
+Event::listen('illuminate.query', function($sql, $bindings, $time) {
+	log::info($sql);
+	log::info(implode($bindings, ', '));
+});
+
 Route::get('/', function() {
     return View::make('hello');
 })->before('auth.basic');
 
 Route::get('/', 'HomeController@showWelcome');
+
+Route::get('/login', 'HomeController@showLogin');
+
+Route::post('/login', 'HomeController@doLogin');
+
+Route::get('/logout', 'HomeController@logout');
 
 Route::get('orm-test', function () {
 	$posts = Post::all();
@@ -27,16 +38,11 @@ Route::get('orm-test', function () {
 	}
 });
 
-// public function run()
-    
-//     {
-//         DB::table('users')->delete();
-
-//         $user = new User();
-//         $user->email = 'iandresabad@yahoo.com';
-//         $user->password = Hash::make('letMeIn');
-//         $user->save();
-//     }
+Route::get('post-test', function () {
+	  $user = Post::first(2);
+	  echo $post->title . '<br>';
+	  echo 'Writeen by: ' . $post->user->email;
+});
 
 Route::get('/resume', 'HomeController@showResume');
 
